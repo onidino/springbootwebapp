@@ -4,9 +4,11 @@ import com.in28minutes.springboot.springbootwebapp.utils.Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller class
+ */
 @RestController
 public class SayHelloController {
-
 
   @GetMapping("say-hello")
   public String sayHello() {

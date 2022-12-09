@@ -6,7 +6,13 @@ import java.nio.file.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Utility class with auxiliary functions.
+ */
 public class Utils {
+
+  private Utils() {
+  }
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
 
