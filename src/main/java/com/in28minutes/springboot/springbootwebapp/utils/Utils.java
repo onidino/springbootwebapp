@@ -16,10 +16,10 @@ public class Utils {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
 
-  public static String getResourceFileAsString(final String filename) {
+  public static String getResourceHtml(final String filename) {
     try {
       return Files.readString(Path.of(
-              String.format("src/main/resources/html/%s", filename)),
+              String.format("src/main/resources/META-INF/resources/WEB-INF/html/%s.html", filename)),
           StandardCharsets.UTF_8);
     } catch (Exception e) {
       LOGGER.info("Error getting the file {}", filename);
