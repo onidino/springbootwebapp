@@ -7,6 +7,7 @@
   <body>
     Welcome ${name} to the JSP page
 
+    <pre>${errorMsg}</pre>
     <form method="post">
       Name: <input type="text" name="name"><br>
       Password: <input type="password" name="password"><br>

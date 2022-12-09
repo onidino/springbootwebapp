@@ -1,7 +1,9 @@
 package com.in28minutes.springboot.springbootwebapp.controller;
 
+import com.in28minutes.springboot.springbootwebapp.service.AuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,13 @@ public class LoginController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
+  private final AuthenticationService authenticationService;
+
+  @Autowired
+  public LoginController(AuthenticationService authenticationService) {
+    this.authenticationService = authenticationService;
+  }
+
   // URL: /login?name=NAME
   @GetMapping(value = "login")
   public String gotoLoginPage(@RequestParam(required = false) String name, ModelMap model) {
@@ -28,8 +37,12 @@ public class LoginController {
   @PostMapping(value = "login")
   public String gotoWelcomePage(
       @RequestParam String name, @RequestParam String password, ModelMap model) {
-    model.put("name", name);
-    model.put("password", password);
-    return "welcome";
+
+    if (authenticationService.isValid(name, password)) {
+      model.put("name", name);
+      return "welcome";
+    }
+    model.put("errorMsg", "Invalid Credentials - Please try again!");
+    return "login";
   }
 }
