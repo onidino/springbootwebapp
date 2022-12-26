@@ -9,11 +9,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * Login Controller.
  */
 @Controller
+@SessionAttributes("name")
 public class LoginController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
@@ -31,7 +33,7 @@ public class LoginController {
     LOGGER.debug("LOG query_param: name = {}", name != null ? name : "null");
 
     model.put("name", name);
-    return "login";
+    return "JSP_Login";
   }
 
   @PostMapping(value = "login")
@@ -40,9 +42,9 @@ public class LoginController {
 
     if (authenticationService.isValid(name, password)) {
       model.put("name", name);
-      return "welcome";
+      return "JSP_Welcome";
     }
     model.put("errorMsg", "Invalid Credentials - Please try again!");
-    return "login";
+    return "JSP_Login";
   }
 }

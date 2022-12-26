@@ -29,7 +29,7 @@ public class SayHelloController {
   // URL: /say-hello-jsp
   @RequestMapping("say-hello-jsp")
   public String sayHelloJsp() {
-    return "sayHello";
+    return "JSP_SayHello";
   }
 
 }
