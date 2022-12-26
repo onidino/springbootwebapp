@@ -42,13 +42,24 @@
       <artifactId>tomcat-embed-jasper</artifactId>
     </dependency>
 
+    <!-- JSTL DEPENDENCIES -->
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>glassfish-jstl</artifactId>
+    </dependency>
+
+    <!-- OTHER -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.24</version>
       <scope>provided</scope>
     </dependency>
-
   </dependencies>
 
   <build>
