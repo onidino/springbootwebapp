@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
- * Login Controller.
+ * Login Controller to validate the user credentials.
  */
 @Controller
 @SessionAttributes("name")

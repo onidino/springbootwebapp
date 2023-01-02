@@ -7,27 +7,47 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
- * Todo list service to obtain the data.
+ * To-do list service to obtain the data.
  */
 @Service
 public class TodoService {
 
   private static final List<Todo> todoList = new ArrayList<>();
 
+  private static int todosCount = 0;
+
   static {
     todoList.add(new Todo(
-        1, "in28minutes", "Learn AWS",
+        ++todosCount, "in28minutes", "Learn AWS",
         LocalDate.now().plusYears(1), false));
     todoList.add(new Todo(
-        2, "in28minutes", "Learn DevOps",
+        ++todosCount, "in28minutes", "Learn DevOps",
         LocalDate.now().plusYears(2), false));
     todoList.add(new Todo(
-        3, "in28minutes", "Learn Fullstack Dev",
+        ++todosCount, "in28minutes", "Learn Fullstack Dev",
         LocalDate.now().plusYears(3), false));
   }
 
+  /**
+   * Returns to-do count according to the username.
+   *
+   * @param username the username
+   * @return the list of to-dos
+   */
   public List<Todo> findByUsername(String username) {
     return todoList;
   }
 
+  /**
+   * Method to add new todos to the list
+   *
+   * @param username    the username
+   * @param description the description of the to-do
+   * @param targetDate  the target to complete the to-do
+   * @param isDone      true/false
+   */
+  public void addTodo(String username, String description, LocalDate targetDate, boolean isDone) {
+    todoList.add(new Todo(
+        ++todosCount, username, description, targetDate, isDone));
+  }
 }

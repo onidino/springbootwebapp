@@ -3,7 +3,7 @@ package com.in28minutes.springboot.springbootwebapp.service;
 import org.springframework.stereotype.Service;
 
 /**
- * Authentication Service.
+ * Authentication Service to validate the user.
  */
 @Service
 public class AuthenticationService {
