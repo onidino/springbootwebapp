@@ -2,11 +2,13 @@ package com.in28minutes.springboot.springbootwebapp.controller;
 
 import com.in28minutes.springboot.springbootwebapp.service.TodoService;
 import com.in28minutes.springboot.springbootwebapp.todo.Todo;
+import jakarta.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes("name")
 public class TodoController {
+
+  private static final LocalDate DEFAULT_TARGET_DATE = LocalDate.now().plusYears(1);
 
   private final TodoService todoService;
 
@@ -49,11 +53,7 @@ public class TodoController {
   @GetMapping(value = "add-todo")
   public String showNewTodoPage(ModelMap model) {
     Todo todo = new Todo(
-        0,
-        (String) model.get("name"),
-        "",
-        LocalDate.now().plusYears(1),
-        false);
+        0, (String) model.get("name"), "", DEFAULT_TARGET_DATE, false);
 
     model.put("todo", todo);
     return "JSP_Todo";
@@ -62,17 +62,17 @@ public class TodoController {
   /**
    * Controller to create a new to-do and add it to the to-do list.
    *
-   * @param model    the model map
-   * @param todoBean the to-do bean way binding
+   * @param model the model map
+   * @param todo  the to-do bean way binding
    * @return redirects to the list-todos page.
    */
   @PostMapping(value = "add-todo")
-  public String addNewTodoPage(ModelMap model, Todo todoBean) {
+  public String addNewTodoPage(ModelMap model, @Valid Todo todo, BindingResult result) {
+    if (result.hasErrors()) {
+      return "JSP_Todo";
+    }
     todoService.addTodo(
-        (String) model.get("name"),
-        todoBean.getDescription(),
-        LocalDate.now().plusYears(1),
-        false);
+        (String) model.get("name"), todo.getDescription(), DEFAULT_TARGET_DATE, false);
 
     return "redirect:list-todos";
   }

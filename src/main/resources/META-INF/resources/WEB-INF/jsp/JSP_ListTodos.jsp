@@ -15,9 +15,9 @@
           </tr>
         </thead>
         <tbody>
-          <c:forEach items="${todos}" var="todo">
+          <c:forEach items="${todos}" var="todoBean">
           <tr>
-            <td>${todo.id}</td><td>${todo.description}</td><td>${todo.targetDate}</td><td>${todo.done}</td>
+            <td>${todoBean.id}</td><td>${todoBean.description}</td><td>${todoBean.targetDate}</td><td>${todoBean.done}</td>
           </tr>
           </c:forEach>
         </tbody>

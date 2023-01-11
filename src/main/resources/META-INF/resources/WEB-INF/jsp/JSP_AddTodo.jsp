@@ -10,7 +10,7 @@
       <h1>Enter Todo Details</h1>
       <form method="post">
         Description: <input type="text" name="description" required="required"/>
-        <input type="submit" class="btn btn-success"/>
+        </br><input type="submit" class="btn btn-success"/>
       </form>
     </div>
 
