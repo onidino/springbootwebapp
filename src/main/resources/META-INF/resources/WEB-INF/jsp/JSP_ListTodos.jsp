@@ -11,13 +11,21 @@
       <table class="table">
         <thead>
           <tr>
-            <th>id</th><th>Description</th><th>Target Date</th><th>Is Done?</th>
+            <th>id</th>
+            <th>Description</th>
+            <th>Target Date</th>
+            <th>Is Done?</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <c:forEach items="${todos}" var="todoBean">
+          <c:forEach items="${todos}" var="todo">
           <tr>
-            <td>${todoBean.id}</td><td>${todoBean.description}</td><td>${todoBean.targetDate}</td><td>${todoBean.done}</td>
+            <td>${todo.id}</td>
+            <td>${todo.description}</td>
+            <td>${todo.targetDate}</td>
+            <td>${todo.done}</td>
+            <td><a href="delete-todo?id=${todo.id}" class="btn btn-warning">DELETE</a></td>
           </tr>
           </c:forEach>
         </tbody>

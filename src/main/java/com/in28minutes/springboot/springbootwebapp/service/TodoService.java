@@ -50,4 +50,13 @@ public class TodoService {
     todoList.add(new Todo(
         ++todosCount, username, description, targetDate, isDone));
   }
+
+  /**
+   * Method to delete todos from the list
+   *
+   * @param id the id
+   */
+  public void deleteTodoById(int id) {
+    todoList.removeIf(todo -> todo.getId() == id);
+  }
 }

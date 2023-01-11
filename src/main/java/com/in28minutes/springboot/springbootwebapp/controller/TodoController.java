@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
@@ -73,6 +74,18 @@ public class TodoController {
     }
     todoService.addTodo(
         (String) model.get("name"), todo.getDescription(), DEFAULT_TARGET_DATE, false);
+
+    return "redirect:list-todos";
+  }
+
+  /**
+   * Controller to delete a to-do from the lisit.
+   *
+   * @return redirects to the list-todos page.
+   */
+  @RequestMapping(value = "delete-todo")
+  public String deleteTodo(@RequestParam("id") int id) {
+    todoService.deleteTodoById(id);
 
     return "redirect:list-todos";
   }
