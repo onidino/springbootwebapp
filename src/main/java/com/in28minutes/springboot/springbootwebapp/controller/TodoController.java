@@ -79,13 +79,42 @@ public class TodoController {
   }
 
   /**
-   * Controller to delete a to-do from the lisit.
+   * Controller to delete a to-do from the list.
    *
    * @return redirects to the list-todos page.
    */
   @RequestMapping(value = "delete-todo")
   public String deleteTodo(@RequestParam("id") int id) {
     todoService.deleteTodoById(id);
+
+    return "redirect:list-todos";
+  }
+
+  /**
+   * Controller to update a to-do from the list.
+   *
+   * @return redirects to the list-todos page.
+   */
+  @GetMapping(value = "update-todo")
+  public String showUpdateTodoPage(@RequestParam("id") int id, ModelMap model) {
+    Todo todo = todoService.findById(id);
+    model.addAttribute("todo", todo);
+    return "JSP_Todo";
+  }
+
+  /**
+   * Controller to update a to-do from the list.
+   *
+   * @return redirects to the list-todos page.
+   */
+  @PostMapping(value = "update-todo")
+  public String updateTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
+    if (result.hasErrors()) {
+      return "JSP_Todo";
+    }
+    todo.setUsername((String) model.get("name"));
+    todo.setTargetDate(DEFAULT_TARGET_DATE);
+    todoService.updateTodo(todo);
 
     return "redirect:list-todos";
   }
