@@ -73,7 +73,7 @@ public class TodoController {
       return "JSP_Todo";
     }
     todoService.addTodo(
-        (String) model.get("name"), todo.getDescription(), DEFAULT_TARGET_DATE, false);
+        (String) model.get("name"), todo.getDescription(), todo.getTargetDate(), false);
 
     return "redirect:list-todos";
   }
@@ -113,7 +113,6 @@ public class TodoController {
       return "JSP_Todo";
     }
     todo.setUsername((String) model.get("name"));
-    todo.setTargetDate(DEFAULT_TARGET_DATE);
     todoService.updateTodo(todo);
 
     return "redirect:list-todos";
