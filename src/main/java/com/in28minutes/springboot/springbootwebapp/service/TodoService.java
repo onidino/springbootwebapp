@@ -36,7 +36,9 @@ public class TodoService {
    * @return the list of to-dos
    */
   public List<Todo> findByUsername(String username) {
-    return todoList;
+    return todoList.stream()
+        .filter(todo -> todo.getUsername().equalsIgnoreCase(username))
+        .toList();
   }
 
   /**
