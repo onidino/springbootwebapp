@@ -5,7 +5,6 @@
   <!-- JSPF NAV BAR -->
   <%@ include file="common/navigation.jspf" %>
 
-
     <div class="container">
       <h1>Enter Todo Details</h1>
       <form:form method="post" modelAttribute="todo">
