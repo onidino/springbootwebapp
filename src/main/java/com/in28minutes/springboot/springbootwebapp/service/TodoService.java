@@ -1,6 +1,6 @@
 package com.in28minutes.springboot.springbootwebapp.service;
 
-import com.in28minutes.springboot.springbootwebapp.todo.Todo;
+import com.in28minutes.springboot.springbootwebapp.entities.Todo;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;

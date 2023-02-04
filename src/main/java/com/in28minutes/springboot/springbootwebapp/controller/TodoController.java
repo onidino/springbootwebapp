@@ -1,8 +1,8 @@
 package com.in28minutes.springboot.springbootwebapp.controller;
 
+import com.in28minutes.springboot.springbootwebapp.entities.Todo;
 import com.in28minutes.springboot.springbootwebapp.security.SecurityUtils;
 import com.in28minutes.springboot.springbootwebapp.service.TodoService;
-import com.in28minutes.springboot.springbootwebapp.todo.Todo;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;

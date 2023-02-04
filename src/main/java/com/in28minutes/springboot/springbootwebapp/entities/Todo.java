@@ -1,4 +1,4 @@
-package com.in28minutes.springboot.springbootwebapp.todo;
+package com.in28minutes.springboot.springbootwebapp.entities;
 
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
