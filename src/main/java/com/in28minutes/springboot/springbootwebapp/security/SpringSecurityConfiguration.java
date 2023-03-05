@@ -19,11 +19,16 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SpringSecurityConfiguration {
 
+  /**
+   * Configures the spring security user details manager with some default users for testing.
+   *
+   * @return the user details manager for in memory usage.
+   */
   @Bean
   public InMemoryUserDetailsManager createUserDetailsManager() {
 
     UserDetails user28 = createNewUser("in28minutes", "dummy");
-    UserDetails userDino = createNewUser("dino", "123");
+    UserDetails userDino = createNewUser("admin", "admin");
 
     return new InMemoryUserDetailsManager(user28, userDino);
   }
@@ -42,11 +47,23 @@ public class SpringSecurityConfiguration {
         .build();
   }
 
+  /**
+   * Password encoder
+   *
+   * @return the encoder.
+   */
   @Bean
   public PasswordEncoder getPasswordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
+  /**
+   * Configures the spring security filter chain to allow access to certain http.
+   *
+   * @param http the http security object
+   * @return the spring security filter chain modified
+   * @throws Exception the exception
+   */
   @Bean
   public SecurityFilterChain filterChain(
       final HttpSecurity http) throws Exception {

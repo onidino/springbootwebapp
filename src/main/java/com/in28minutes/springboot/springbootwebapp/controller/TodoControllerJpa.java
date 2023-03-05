@@ -1,12 +1,14 @@
 package com.in28minutes.springboot.springbootwebapp.controller;
 
 import com.in28minutes.springboot.springbootwebapp.entities.Todo;
+import com.in28minutes.springboot.springbootwebapp.repository.TodoRepository;
 import com.in28minutes.springboot.springbootwebapp.security.SecurityUtils;
-import com.in28minutes.springboot.springbootwebapp.service.TodoService;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,21 +20,21 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 /**
  * TodoController to manage the to-do list.
  */
-//@Controller
+@Controller
 @SessionAttributes("name")
-public class TodoController {
+public class TodoControllerJpa {
 
   private static final String JSP_TODO = "JSP_Todo";
   private static final String JSP_LIST_TODOS = "JSP_ListTodos";
   private static final String REDIRECT_LIST_TODOS = "redirect:list-todos";
   private static final LocalDate DEFAULT_TARGET_DATE = LocalDate.now().plusYears(1);
 
-  private final TodoService todoService;
+  private final TodoRepository todoRepository;
 
   @Autowired
-  public TodoController(
-      TodoService todoService) {
-    this.todoService = todoService;
+  public TodoControllerJpa(
+      final TodoRepository todoRepository) {
+    this.todoRepository = todoRepository;
   }
 
   /**
@@ -45,7 +47,8 @@ public class TodoController {
   public String listAllTodos(
       ModelMap model) {
 
-    List<Todo> todosResult = todoService.findByUsername(SecurityUtils.getLoggedInUser());
+    List<Todo> todosResult = todoRepository.findByUsername(
+        SecurityUtils.getLoggedInUser());
     if (!todosResult.isEmpty()) {
       model.addAttribute("todos", todosResult);
     }
@@ -62,7 +65,11 @@ public class TodoController {
       ModelMap model) {
 
     Todo todo = new Todo(
-        0, SecurityUtils.getLoggedInUser(), "", DEFAULT_TARGET_DATE, false);
+        0,
+        SecurityUtils.getLoggedInUser(),
+        "",
+        DEFAULT_TARGET_DATE,
+        false);
 
     model.put("todo", todo);
     return JSP_TODO;
@@ -71,18 +78,18 @@ public class TodoController {
   /**
    * Controller to create a new to-do and add it to the to-do list.
    *
-   * @param todo the to-do bean way binding
+   * @param todo the to-do bean way binding with the data to save.
    * @return redirects to the list-todos page.
    */
   @PostMapping(value = "add-todo")
-  public String addNewTodoPage(
+  public String addNewTodo(
       @Valid Todo todo, BindingResult result) {
 
     if (result.hasErrors()) {
       return JSP_TODO;
     }
-    todoService.addTodo(
-        SecurityUtils.getLoggedInUser(), todo.getDescription(), todo.getTargetDate(), false);
+    todo.setUsername(SecurityUtils.getLoggedInUser());
+    todoRepository.save(todo);
 
     return REDIRECT_LIST_TODOS;
   }
@@ -96,7 +103,7 @@ public class TodoController {
   public String deleteTodo(
       @RequestParam("id") int id) {
 
-    todoService.deleteTodoById(id);
+    todoRepository.deleteById(id);
 
     return REDIRECT_LIST_TODOS;
   }
@@ -107,11 +114,14 @@ public class TodoController {
    * @return redirects to the list-todos page.
    */
   @GetMapping(value = "update-todo")
-  public String showUpdateTodoPage(
+  public String showUpdateTodo(
       @RequestParam("id") int id, ModelMap model) {
 
-    Todo todo = todoService.findById(id);
-    model.addAttribute("todo", todo);
+    Optional<Todo> todo = todoRepository.findById(id);
+    if (todo.isPresent()) {
+      todoRepository.save(todo.get());
+      model.addAttribute("todo", todo);
+    }
 
     return JSP_TODO;
   }
@@ -129,7 +139,7 @@ public class TodoController {
       return JSP_TODO;
     }
     todo.setUsername(SecurityUtils.getLoggedInUser());
-    todoService.updateTodo(todo);
+    todoRepository.save(todo);
 
     return REDIRECT_LIST_TODOS;
   }

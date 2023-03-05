@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes("name")
 public class WelcomeController {
 
+  /**
+   * Redirects the user to the home page JSP_Welcome.
+   *
+   * @param model the modelmap
+   * @return the view page JSP_Welcome.
+   */
   @GetMapping(value = "/")
   public String gotoWelcomePage(
       ModelMap model) {
