@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
- * TodoController to manage the to-do list.
+ * TodoController to manage the to-do list using JPA.
  */
 @Controller
 @SessionAttributes("name")
