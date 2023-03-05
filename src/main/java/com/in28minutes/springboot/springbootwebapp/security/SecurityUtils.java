@@ -11,6 +11,7 @@ public class SecurityUtils {
   }
 
   public static String getLoggedInUser() {
+
     return SecurityContextHolder.getContext()
         .getAuthentication()
         .getName();

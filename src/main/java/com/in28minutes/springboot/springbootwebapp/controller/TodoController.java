@@ -31,7 +31,8 @@ public class TodoController {
   private final TodoService todoService;
 
   @Autowired
-  public TodoController(TodoService todoService) {
+  public TodoController(
+      TodoService todoService) {
     this.todoService = todoService;
   }
 
@@ -42,7 +43,9 @@ public class TodoController {
    * @return the list-todos page.
    */
   @RequestMapping(value = "list-todos")
-  public String listAllTodos(ModelMap model) {
+  public String listAllTodos(
+      ModelMap model) {
+
     List<Todo> todosResult = todoService.findByUsername(SecurityUtils.getLoggedInUser());
     if (!todosResult.isEmpty()) {
       model.addAttribute("todos", todosResult);
@@ -56,7 +59,9 @@ public class TodoController {
    * @return the add to-do page.
    */
   @GetMapping(value = "add-todo")
-  public String showNewTodoPage(ModelMap model) {
+  public String showNewTodoPage(
+      ModelMap model) {
+
     Todo todo = new Todo(
         0, SecurityUtils.getLoggedInUser(), "", DEFAULT_TARGET_DATE, false);
 
@@ -71,7 +76,9 @@ public class TodoController {
    * @return redirects to the list-todos page.
    */
   @PostMapping(value = "add-todo")
-  public String addNewTodoPage(@Valid Todo todo, BindingResult result) {
+  public String addNewTodoPage(
+      @Valid Todo todo, BindingResult result) {
+
     if (result.hasErrors()) {
       return JSP_TODO;
     }
@@ -87,7 +94,9 @@ public class TodoController {
    * @return redirects to the list-todos page.
    */
   @RequestMapping(value = "delete-todo")
-  public String deleteTodo(@RequestParam("id") int id) {
+  public String deleteTodo(
+      @RequestParam("id") int id) {
+
     todoService.deleteTodoById(id);
 
     return REDIRECT_LIST_TODOS;
@@ -99,7 +108,9 @@ public class TodoController {
    * @return redirects to the list-todos page.
    */
   @GetMapping(value = "update-todo")
-  public String showUpdateTodoPage(@RequestParam("id") int id, ModelMap model) {
+  public String showUpdateTodoPage(
+      @RequestParam("id") int id, ModelMap model) {
+
     Todo todo = todoService.findById(id);
     model.addAttribute("todo", todo);
 
@@ -112,7 +123,9 @@ public class TodoController {
    * @return redirects to the list-todos page.
    */
   @PostMapping(value = "update-todo")
-  public String updateTodo(@Valid Todo todo, BindingResult result) {
+  public String updateTodo(
+      @Valid Todo todo, BindingResult result) {
+
     if (result.hasErrors()) {
       return JSP_TODO;
     }

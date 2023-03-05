@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class WelcomeController {
 
   @GetMapping(value = "/")
-  public String gotoWelcomePage(ModelMap model) {
+  public String gotoWelcomePage(
+      ModelMap model) {
+
     model.put("name", SecurityUtils.getLoggedInUser());
     return "JSP_Welcome";
   }

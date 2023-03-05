@@ -35,7 +35,9 @@ public class TodoService {
    * @param username the username
    * @return the list of to-dos
    */
-  public List<Todo> findByUsername(String username) {
+  public List<Todo> findByUsername(
+      final String username) {
+
     return todoList.stream()
         .filter(todo -> todo.getUsername().equalsIgnoreCase(username))
         .toList();
@@ -49,7 +51,9 @@ public class TodoService {
    * @param targetDate  the target to complete the to-do
    * @param isDone      true/false
    */
-  public void addTodo(String username, String description, LocalDate targetDate, boolean isDone) {
+  public void addTodo(
+      String username, String description, LocalDate targetDate, boolean isDone) {
+
     todoList.add(new Todo(
         ++todosCount, username, description, targetDate, isDone));
   }
@@ -59,7 +63,9 @@ public class TodoService {
    *
    * @param id the id
    */
-  public void deleteTodoById(int id) {
+  public void deleteTodoById(
+      int id) {
+
     todoList.removeIf(todo -> todo.getId() == id);
   }
 
@@ -69,7 +75,9 @@ public class TodoService {
    * @param id of the to-do to find
    * @return the to-do found
    */
-  public Todo findById(int id) {
+  public Todo findById(
+      int id) {
+
     return todoList.stream()
         .filter(todoId -> todoId.getId() == id)
         .findFirst()
@@ -81,7 +89,9 @@ public class TodoService {
    *
    * @param todo the to-do to update
    */
-  public void updateTodo(@Valid Todo todo) {
+  public void updateTodo(
+      @Valid Todo todo) {
+
     deleteTodoById(todo.getId());
     todoList.add(todo);
   }
