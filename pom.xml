@@ -124,7 +124,11 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.0.0-M1</version>
           <configuration>
-            <skipTests>true</skipTests>
+            <printSummary>false</printSummary>
+            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+            <forkCount>3</forkCount>
+            <reuseForks>true</reuseForks>
+            <argLine>${surefireArgLine} -Xmx1024m -noverify</argLine>
           </configuration>
         </plugin>
 
@@ -142,6 +146,12 @@
               <goals>
                 <goal>prepare-agent</goal>
               </goals>
+              <configuration>
+                <append>true</append>
+                <destFile>${sonar.jacoco.reportPath}</destFile>
+                <!-- Sets the VM argument line used when unit tests are run. -->
+                <propertyName>surefireArgLine</propertyName>
+              </configuration>
             </execution>
             <execution>
               <id>coverage-report</id>
