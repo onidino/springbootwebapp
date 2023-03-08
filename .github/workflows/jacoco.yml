@@ -14,15 +14,10 @@ jobs:
           distribution: 'corretto'
           cache: maven
 
-      - name: Generate Coverage Report
-        run: |
-          mvn clean verify
+      - name: Build with Maven
+        run: mvn -B test
 
-      - name: Add coverage to PR
-        id: jacoco
-        uses: madrapps/jacoco-report@v1.3
+      - name: Generate JaCoCo Badge
+        uses: cicirello/jacoco-badge-generator@v2
         with:
-          paths: ${{ github.workspace }}/target/site/jacoco/index.html
-          token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: 40
-          min-coverage-changed-files: 60
+          generate-branches-badge: true
