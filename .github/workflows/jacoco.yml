@@ -22,6 +22,7 @@ jobs:
         id: jacoco
         uses: madrapps/jacoco-report@v1.3
         with:
+          set-safe-directory: false
           paths: ${{ github.workspace }}/build/reports/jacoco/testCoverage/testCoverage.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 40
