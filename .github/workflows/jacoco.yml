@@ -15,7 +15,7 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: mvn -B package -Pcoverage
+        run: mvn -B test
 
       - name: Generate JaCoCo badge
         id: jacoco
@@ -31,7 +31,7 @@ jobs:
           echo "branches = ${{ steps.jacoco.outputs.branches }}"
 
       - name: Upload JaCoCo coverage report as a workflow artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: jacoco-report
           path: target/site/jacoco/
