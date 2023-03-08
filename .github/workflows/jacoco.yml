@@ -14,12 +14,10 @@ jobs:
           distribution: 'corretto'
           cache: maven
 
-      - uses: actions/checkout@v2
       - name: Generate Coverage Report
         run: |
           mvn -B package --file pom.xml
 
-      - uses: actions/checkout@v2
       - name: Add coverage to PR
         id: jacoco
         uses: madrapps/jacoco-report@v1.3
