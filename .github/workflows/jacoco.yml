@@ -16,7 +16,7 @@ jobs:
 
       - name: Generate Coverage Report
         run: |
-          mvn -B package --file pom.xml
+          mvn clean verify
 
       - name: Add coverage to PR
         id: jacoco
