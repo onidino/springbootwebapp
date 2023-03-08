@@ -16,11 +16,6 @@
   <description>Demo project for Spring Boot</description>
   <properties>
     <java.version>19</java.version>
-    <!-- JaCoCo Properties -->
-    <jacoco.version>0.8.6</jacoco.version>
-    <sonar.coverage.jacoco.xmlReportPaths>
-      ${project.basedir}/report-aggregate/target/site/jacoco-aggregate/jacoco.xml
-    </sonar.coverage.jacoco.xmlReportPaths>
   </properties>
   <dependencies>
 
@@ -138,21 +133,16 @@
         <version>0.8.8</version>
         <executions>
           <execution>
-            <id>prepare-agent</id>
             <goals>
               <goal>prepare-agent</goal>
             </goals>
           </execution>
           <execution>
-            <id>report</id>
+            <id>generate-code-coverage-report</id>
+            <phase>test</phase>
             <goals>
               <goal>report</goal>
             </goals>
-            <configuration>
-              <formats>
-                <format>XML</format>
-              </formats>
-            </configuration>
           </execution>
         </executions>
       </plugin>
