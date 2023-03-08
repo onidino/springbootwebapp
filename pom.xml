@@ -133,13 +133,14 @@
         <version>0.8.8</version>
         <executions>
           <execution>
+            <id>jacoco-initialize</id>
             <goals>
               <goal>prepare-agent</goal>
             </goals>
           </execution>
           <execution>
-            <id>generate-code-coverage-report</id>
-            <phase>test</phase>
+            <id>jacoco-site</id>
+            <phase>package</phase>
             <goals>
               <goal>report</goal>
             </goals>
