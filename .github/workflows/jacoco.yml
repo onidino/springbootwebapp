@@ -22,7 +22,7 @@ jobs:
         id: jacoco
         uses: cicirello/jacoco-badge-generator@v2
         with:
-          jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
+          jacoco-csv-file: /target/coverage-reports/jacocoTestReport.csv
 
       - name: Log coverage percentage
         run: |
