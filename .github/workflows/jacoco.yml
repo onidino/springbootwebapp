@@ -27,7 +27,6 @@ jobs:
           coverage-badge-filename: jacoco.svg
 
       - name: Add coverage to PR
-        id: jacoco report
         uses: madrapps/jacoco-report@v1.3
         with:
           paths: target/site/jacoco/jacoco.xml
