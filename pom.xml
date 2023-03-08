@@ -114,7 +114,6 @@
   </dependencies>
 
   <build>
-    <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.springframework.boot</groupId>
@@ -135,58 +134,21 @@
           <artifactId>jacoco-maven-plugin</artifactId>
           <version>0.8.8</version>
           <configuration>
-            <output>file</output>
-            <append>true</append>
+            <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
           </configuration>
           <executions>
             <execution>
-              <id>prepare-agent</id>
+              <id>jacoco-initialize</id>
               <goals>
                 <goal>prepare-agent</goal>
               </goals>
               <configuration>
-                <destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
-                <propertyName>surefireArgLine</propertyName>
-              </configuration>
-            </execution>
-            <execution>
-              <id>report</id>
-              <phase>test</phase>
-              <goals>
-                <goal>report</goal>
-              </goals>
-              <configuration>
-                build/reports/jacoco/test/jacocoTestReport.csv
-                <dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
-                <outputDirectory>${project.reporting.outputDirectory}/build/reports/jacoco/test
-                </outputDirectory>
-              </configuration>
-            </execution>
-            <execution>
-              <id>jacoco-check</id>
-              <goals>
-                <goal>check</goal>
-              </goals>
-              <configuration>
-                <rules>
-                  <rule>
-                    <element>PACKAGE</element>
-                    <limits>
-                      <limit>
-                        <counter>LINE</counter>
-                        <value>COVEREDRATIO</value>
-                        <minimum>0.50</minimum>
-                      </limit>
-                    </limits>
-                  </rule>
-                </rules>
+                <propertyName>jacoco.argLine</propertyName>
               </configuration>
             </execution>
           </executions>
         </plugin>
-        <!--jacoco plugin end -->
       </plugins>
-    </pluginManagement>
   </build>
 
 </project>
